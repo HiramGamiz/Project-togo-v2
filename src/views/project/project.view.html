@@ -8,7 +8,7 @@
 <div layout="column" layout-align="center center">
     <div layout="row" layout-align="center center">
         <h2 layout-padding> Elige un proyecto:</h2>
-        <p ng-if="vm.projects.length === 0">No tienes proyectos asignados</p>
+        <p ng-if="vm.projects.length === 0">No tienes proyectos </p>
         <div flex>
             <md-input-container layout-margin ng-if="vm.projects.length > 0">
                 <md-select ng-model="vm.selectedProject" aria-label="Proyecto" placeholder="Selecciona un proyecto" ng-change="vm.getLogs(vm.selectedProject)">
