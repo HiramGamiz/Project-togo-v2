@@ -8,15 +8,29 @@
     <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css">
     <link rel="stylesheet" href="./bower_components/angular-datepicker/dist/angular-datepicker.css">
     <link rel="stylesheet" href="./styles/main.css">
-    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css'
+        media='all' />
+
+    <!--<link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css" type="text/css" media="all">-->
+
+    <link rel="stylesheet" type="text/css" href="./bower_components/datatables.net-dt/css/jquery.dataTables.css">
+
+    <!-- Table -->
+    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+   
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.0/css/responsive.bootstrap.min.css">
+
+
     <!-- @todo Solicitar FS Lola web font -->
 </head>
 
 <body ng-app="focus-track">
 
     <ui-view></ui-view>
-
+    
     <!-- Libraries -->
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
     <script src="./bower_components/moment/moment.js"></script>
     <script src="./bower_components/moment-timezone/moment-timezone.js"></script>
     <script src="./bower_components/angular/angular.js"></script>
@@ -27,24 +41,45 @@
     <script src="./bower_components/angular-messages/angular-messages.js"></script>
     <script src="./bower_components/angular-material/angular-material.js"></script>
     <script src="./bower_components/angular-datepicker/dist/angular-datepicker.js"></script>
-    <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <!--  <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>-->
+    <script src="https://cdn.datatables.net/responsive/2.2.0/js/dataTables.responsive.min.js"></script>
+  <!--  <script src="https://cdn.datatables.net/responsive/2.2.0/js/responsive.bootstrap.min.js"></script>-->
+    <!--<script type="text/javascript" charset="utf8" src="./bower_components/datatables.net/js/jquery.dataTables.js"></script>-->
+    
+    <script src="https://cdn.auth0.com/js/auth0/8.10.1/auth0.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-auth0/2.0.0/angular-auth0.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="app/app.run.js"></script>
+    <script type="text/javascript" src="app/navbar/navbar.directive.js"></script>
+    <script type="text/javascript" src="app/home/home.controller.js"></script>
+    <script type="text/javascript" src="app/callback/callback.controller.js"></script>
+    <script type="text/javascript" src="app/auth/auth.service.js"></script>
+
+
 
     <!-- App's settings -->
     <script src="./settings/module.js"></script>
     <script src="./settings/http-interceptor.service.js"></script>
     <script src="./settings/config.js"></script>
     <script src="./settings/states.js"></script>
+  
 
     <!-- Services -->
     <script src="./services/end-point.service.js"></script>
     <script src="./services/category.service.js"></script>
     <script src="./services/project.service.js"></script>
+    <script src="./services/stage.service.js"></script>
     <script src="./services/logger.service.js"></script>
+    <script src="./services/type.service.js"></script>
+    <script src="./services/masterproject.service.js"></script>
+    <script src="./services/work-log.service.js"></script>
 
     <!-- App's views -->
     <script src="./views/login/login.controller.js"></script>
     <script src="./views/project/project.controller.js"></script>
-
+    <script src="./views/project/work-log/work-log.controller.js"></script>
 
 </body>
 

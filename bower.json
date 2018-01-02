@@ -23,6 +23,7 @@
     "angular-ui-router": "^0.3.2",
     "angular-datepicker": "^2.0.3",
     "moment": "^2.17.1",
-    "ngstorage": "^0.3.11"
+    "ngstorage": "^0.3.11",
+    "datatables.net-dt": "^3.2.2"
   }
 }

@@ -1,3 +1,26 @@
-body {
+.titulo{
+    font-size: 21px;
+}
+.width100{
+    width: 100%;
     
 }
+.width90{
+    width: 90%;
+}
+.hiddeLetters{
+    width: 310px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.row{
+    margin-left: 0!important;
+    margin-right: 0!important;
+ }
+.align{
+    text-align: left;
+}
+
+ 

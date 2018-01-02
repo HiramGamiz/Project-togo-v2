@@ -1,0 +1,6 @@
+<h4 ng-if="vm.auth.isAuthenticated()">
+    Logueadoo!
+</h4>
+<h4 ng-if="!vm.auth.isAuthenticated()">
+  Inicia Sesion! <a ng-click="vm.auth.login()">Iniciar Sesion</a> to continue.
+</h4>

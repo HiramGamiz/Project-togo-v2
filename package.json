@@ -20,9 +20,12 @@
   "dependencies": {
     "@angular/cli": "^1.5.0",
     "angular": "^1.6.6",
+    "angular-auth0": "^2.0.0",
     "auth0-js": "^8.11.2",
     "bootstrap": "^3.3.7",
     "gulp-cli": "^1.4.0",
-    "gulp-install": "^1.1.0"
+    "gulp-install": "^1.1.0",
+    "ng-sidebar": "^6.0.4",
+    "ng-table": "^3.0.1"
   }
 }

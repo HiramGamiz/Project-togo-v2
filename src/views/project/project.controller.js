@@ -3,18 +3,28 @@
     angular
         .module('focus-track')
         .controller('ProjectController', ProjectController);
-    ProjectController.$inject = ['$state', '$scope', '$filter', '$mdToast', '$stateParams', '$mdDialog', 'ProjectService', 'CategoryService', 'Logger', '$localStorage'];
-    function ProjectController($state, $scope, $filter, $mdToast, $stateParams, $mdDialog, ProjectService, CategoryService, Logger, $localStorage) {
+    ProjectController.$inject = ['$state', '$scope', '$filter', '$mdToast', '$stateParams', '$mdDialog', 'ProjectService', 'StageService', 'CategoryService', 'TypeService', 'MasterProjectService','WorkLogService', 'Logger', '$localStorage'];
+
+    function ProjectController($state, $scope, $filter, $mdToast, $stateParams, $mdDialog, ProjectService, StageService, CategoryService, TypeService, MasterProjectService, WorkLogService, Logger, $localStorage) {
         var vm = this;
-        vm.allowed = { minutes: [0, 15, 30, 45], hours: [] };
+        vm.allowed = {
+            minutes: [0, 15, 30, 45],
+            hours: []
+        };
         for (var i = 0; i < 25; i++) {
             vm.allowed.hours.push(i);
         }
         vm.categories = [];
+        vm.types = [];
+        vm.masterprojects = [];
+        vm.stages = [];
+  
 
         vm.projects = [];
         vm.logs = [];
+        vm.myLogs=[];
         vm.selectedProject = null;
+        vm.selectedtype = null;
         vm.params = $stateParams;
         vm.logForm = getCleanForm();
 
@@ -23,6 +33,8 @@
         vm.showAllLogs = showAllLogs;
         vm.closeModal = $mdDialog.hide;
         vm.logout = logout;
+        vm.projects = seeProjects;
+        vm.worklog = seeWorklogs;
 
         activate();
 
@@ -31,14 +43,19 @@
         function activate() {
             getCategories();
             getProjects();
+            getTypes();
+            getMasterProjects();
+            getStages();
+
         }
 
         function getProjects(filter) {
             var filter = {
-                codigoagente: $localStorage.authorizationData.username,
-                activo: true
+                codigoagente: "fortiz",
+                activo: true,
+                tipoproyecto: "asignado"
             };
-            return ProjectService.get(filter).then(function (data) {
+            return MasterProjectService.get(filter).then(function (data) {
                 vm.projects = data;
             })
         }
@@ -57,12 +74,15 @@
             }
         }
 
+
+
+
         function addLog(log) {
             if (!log || (log.horas === 0)) {
                 $mdToast.show(
                     $mdToast.simple()
-                        .textContent('Es necesario registrar al menos 1 hora')
-                        .position('top right')
+                    .textContent('Es necesario registrar al menos 1 hora')
+                    .position('top right')
                 );
                 return;
             }
@@ -84,25 +104,30 @@
                     if (data.exito) {
                         $mdToast.show(
                             $mdToast.simple()
-                                .textContent('Se ha registrado de forma exitosa el trabajo')
-                                .position('top right')
-                                .hideDelay(6000)
+                            .textContent('Se ha registrado de forma exitosa el trabajo')
+                            .position('top right')
+                            .hideDelay(6000)
                         );
                         vm.logForm = getCleanForm();
                         getLogs(vm.selectedProject);
-                    }
-                    else {
+                    } else {
                         $mdToast.show(
                             $mdToast.simple()
-                                .textContent('Hubo un error al registrar el trabajo')
-                                .position('top right')
+                            .textContent('Hubo un error al registrar el trabajo')
+                            .position('top right')
                         );
                     }
                 });
         }
 
         function getCleanForm() {
-            return { date: $filter('date')(Date.now(), 'yyyy/MM/dd'), hours: 1, minutes: 0, comment: '', category: null };
+            return {
+                date: $filter('date')(Date.now(), 'yyyy/MM/dd'),
+                hours: 1,
+                minutes: 0,
+                comment: '',
+                category: null
+            };
         }
 
         function getCategories() {
@@ -111,10 +136,44 @@
             });
         }
 
+        function getTypes() {
+            return TypeService.get().then(function (data) {
+                vm.types = data;
+            });
+        }
+        function getMyLogs(){
+            return WorkLogService.get.then(function(data){
+                vm.myLogs = data;
+            });
+        }
+
+        function getMasterProjects() {
+            return MasterProjectService.get().then(function (data) {
+                vm.masterprojects = data;
+            });
+        }
+
+        function getStages() {
+            return StageService.get().then(function (data) {
+                vm.stages = data;
+            });
+        }
+
+
+
         function logout() {
             $localStorage.$reset();
             $state.go('login', vm.loginForm);
         }
+
+        function seeWorklogs() {
+            $state.go('worklog');
+        }
+
+        function seeProjects(){
+            $state.go('project');
+        }
+
 
         function showAllLogs($event) {
             $mdDialog.show({

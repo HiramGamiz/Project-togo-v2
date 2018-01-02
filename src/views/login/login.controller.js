@@ -26,7 +26,7 @@
         function login($form) {
 
             $http
-                .get('')
+                .get('https://3wmkp5h6pf.execute-api.us-east-1.amazonaws.com/prod/t2gotoken')
                 .then(function (response) {
                     console.log('Token obtenido correctamente.');
                     $localStorage.authorizationData = {};

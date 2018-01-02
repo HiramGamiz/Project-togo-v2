@@ -1,62 +1,103 @@
-
 <md-toolbar class="md-hue-2">
-      <div class="md-toolbar-tools">
-        <h2 flex md-truncate>  Time 2Go</h2>
-         <span flex></span>
-            <md-button id="buttonExit" class="md-raised" aria-label="Cerrar sesión" ng-click="vm.logout()"> Salir </md-button>
-      </div>
+    <div class="md-toolbar-tools ">
+        <h2 flex md-truncate> Time 2Go</h2>
+        <md-button class="md-raised" aria-label="Registros" ng-click="vm.worklog()"> Registros </md-button>
+        <md-button id="buttonExit" class="md-raised" aria-label="Cerrar sesión" ng-click="vm.logout()"> Salir </md-button>
+    </div>
 </md-toolbar>
-<div layout="column" layout-align="center center">
-    <div layout="row" layout-align="center center">
-        <h2 layout-padding> Elige un proyecto:</h2>
-        <p ng-if="vm.projects.length === 0">No tienes proyectos asignados</p>
-        <div flex>
-            <md-input-container layout-margin ng-if="vm.projects.length > 0">
-                <md-select ng-model="vm.selectedProject" aria-label="Proyecto" placeholder="Selecciona un proyecto" ng-change="vm.getLogs(vm.selectedProject)">
-                    <md-option ng-value="project" ng-repeat="project in vm.projects">
-                        {{ project.proyecto }}
-                    </md-option>gulp
-                </md-select>
-            </md-input-container>
-        </div>
+<br>
+<div class="row">
+    <div class="col-md-3 col-sm-12 col-xs-12">
+        <center>
+            <div class="width100">
+                <span class="titulo">Tipo: </span>
+                <md-input-container>
+                    <md-select ng-model="vm.selectedtype" aria-label="Proyecto" placeholder="Tipo de proyecto" class="width100">
+                        <md-option ng-value="type" ng-repeat="type in vm.types">
+                            {{ type.name }}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </center>
     </div>
-</div>
-
-<!-- Projects -->
-<div layout="row" layout-align="center" ng-if="vm.selectedProject">
-
-    <!-- History -->
-    <div flex="45" layout-margin>
-        <md-content md-whiteframe="2">
-            <md-toolbar layout="row">
-                <div class="md-toolbar-tools">
-                    <span><i class="material-icons">alarm_on</i> Mis registros de trabajo </span>
-                </div>
-            </md-toolbar>
-
-            <md-list ng-if="vm.logs.length > 0">
-                <md-list-item class="md-2-line" ng-repeat="log in vm.logs | limitTo: 5">
-                    <div class="md-list-item-text">
-                        <h3>{{ log.fechatrabajo | date: 'dd/MM/yyyy' }}</h3>
-                        <p>{{ log.horas }} hrs. {{ log.minutos }} min;      Aprobado: {{ log.aprobado ? 'Sí' : 'No' }}</p>
-                        <p ng-if="log.comentario.length > 0">
-                            {{ log.comentario }}
-                        </p>
-                    </div>
-                </md-list-item>
-
-                <md-list-item ng-if="vm.logs.length > 5">
-                    <span flex></span>
-                    <md-button id="buttonViewMore" class="md-primary md-raised" aria-label="Ver todos los registros" ng-click="vm.showAllLogs($event)"> Ver todos </md-button>
-                </md-list-item>
-            </md-list>
-
-            <p ng-if="vm.logs.length === 0" layout-padding>
-                No hay registros asignados a este proyecto
-            </p>
-        </md-content>
+    <div class="col-md-5 col-sm-12 col-xs-12">
+        <center>
+            <div class="width100">
+                <span class="titulo">Proyecto: </span>
+                <p ng-if="vm.projects.length === 0">No tienes proyectos</p>
+                <md-input-container ng-if="vm.projects.length > 0">
+                    <md-select class="hiddeLetters" ng-model="vm.selectedProject" aria-label="Proyecto" placeholder="Selecciona un proyecto"
+                        ng-change="vm.getLogs(vm.selectedProject)" >
+                        <md-option ng-value="project" ng-repeat="project in vm.projects" title="{{ project.projectName }} " ng-selected="$first">
+                            {{ project.projectName }}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </center>
+    </div>
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <center>
+            <div class="width100">
+                <span class="titulo">Etapa: </span>
+                <p ng-if="vm.projects.length === 0">Este Proyecto no tiene Etapas</p>
+                <md-input-container ng-if="vm.stages.length > 0">
+                    <md-select class="hiddeLetters" ng-model="vm.masterproject" aria-label="Proyecto" placeholder="Selecciona un proyecto">
+                        <md-option ng-value="stage" ng-repeat="stage in vm.stages" title="{{ stage.stageName }}">
+                            {{ stage.stageName }}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </center>
     </div>
 
-    <!-- Work logs -->
-    <div flex="45" layout-margin ng-include="'./views/project/work-log.partial.html'"></div>
 </div>
+<br>
+<div class="row" ng-if="vm.selectedProject">
+    <div class="col-md-6 col-xs-12 col-sm-12">
+        <center>
+            <div class="width90">
+                <div ng-include="'./views/project/work-log.partial.html'"></div>
+            </div>
+        </center>
+    </div>
+    <div class="col-md-6 col-xs-12 col-sm-12">
+        <center>
+            <div class="width90">
+                <md-content md-whiteframe="2">
+                    <md-toolbar layout="row">
+                        <div class="md-toolbar-tools">
+                            <span>
+                                <i class="material-icons">alarm_on</i> Mis registros de trabajo </span>
+                        </div>
+                    </md-toolbar>
+                    <md-list ng-if="vm.logs.length > 0">
+                        <md-list-item class="md-2-line" ng-repeat="log in vm.logs | limitTo: 5">
+                            <div class="md-list-item-text">
+                                <h3>Fecha: {{ log.fechatrabajo | date: 'dd/MM/yyyy' }}</h3>
+                                <p>Tiempo: {{ log.horas }} hrs. {{ log.minutos }} min </p>
+                                <p>Aprobado: {{ log.aprobado ? 'Sí' : 'No' }}</p>
+                                <p ng-if="log.comentario.length > 0">
+                                    Comentario: {{ log.comentario }}
+                                </p>
+                                <hr>
+                            </div>
+                        </md-list-item>
+
+                        <md-list-item ng-if="vm.logs.length > 5">
+                            <span flex></span>
+                            <md-button id="buttonViewMore" class="md-primary md-raised" aria-label="Ver todos los registros" ng-click="vm.showAllLogs($event)">
+                                Ver todos </md-button>
+                        </md-list-item>
+                    </md-list>
+                    <p ng-if="vm.logs.length === 0" layout-padding>
+                        No hay registros asignados a este proyecto
+                    </p>
+                </md-content>
+            </div>
+        </center>
+
+    </div>
+</div><br><br><br>

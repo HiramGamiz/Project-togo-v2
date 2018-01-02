@@ -30,7 +30,16 @@
             templateUrl: './views/project/project.view.html'
         };
 
+        var workLogState = {
+            controller: 'WorkLogController',
+            controllerAs: 'vm',
+            name: 'worklog',
+            url: '/work-log',
+            templateUrl: './views/project/work-log/work-log.html'
+        };
+
         $stateProvider.state(loginState);
         $stateProvider.state(projectState);
+        $stateProvider.state(workLogState);
     }
 })();
